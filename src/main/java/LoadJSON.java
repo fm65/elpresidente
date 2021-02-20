@@ -40,6 +40,8 @@ public class LoadJSON {
     {
         ArrayList<Faction> allFactions = new ArrayList<Faction>();
         this.data.setAllFactions(allFactions);
+        this.data.calculateGlobalPopulationWithUpdate();
+        this.data.calculateGlobalSatisfactionWithUpdate();
     }
     public void extractData()
     {

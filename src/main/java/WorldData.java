@@ -13,17 +13,30 @@ public class WorldData {
     private ArrayList<Event> events;
 
     public WorldData() {
+        this.allFactions = new ArrayList<Faction>();
+        this.events = new ArrayList<Event>();
 
     }
-    private void calculateGlobalSatisfaction()
+    public void calculateGlobalSatisfactionWithUpdate()
     {
         double totalScore = 0.0;
-        for(int i = 0; i < this.allFactions.size(); i++)
+        for(Faction faction : this.allFactions)
         {
-            totalScore += this.allFactions.get(i).getSatisfaction() * this.allFactions.get(i).getTotalSupporter();
+            totalScore += faction.getSatisfaction() * faction.getTotalSupporter();
         }
         this.globalSatisfaction = totalScore / globalPopulation;
     }
+
+    public void calculateGlobalPopulationWithUpdate()
+    {
+        int population = 0;
+        for(Faction faction : this.allFactions)
+        {
+            population += faction.getTotalSupporter();
+        }
+        this.globalPopulation = population;
+    }
+
     public ArrayList<Faction> getAllFactions() {
         return allFactions;
     }
