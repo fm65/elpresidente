@@ -1,8 +1,7 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class WorldData {
-    private ArrayList<Faction> allFactions;
+    private ArrayList<Faction> factionsList;
     private double globalSatisfaction;
     private int industryPercentage;
     private int agriculturePercentage;
@@ -13,36 +12,36 @@ public class WorldData {
     private ArrayList<Event> events;
 
     public WorldData() {
-        this.allFactions = new ArrayList<Faction>();
+        this.factionsList = new ArrayList<Faction>();
         this.events = new ArrayList<Event>();
 
     }
     public void calculateGlobalSatisfactionWithUpdate()
     {
         double totalScore = 0.0;
-        for(Faction faction : this.allFactions)
+        for(Faction faction : this.factionsList)
         {
-            totalScore += faction.getSatisfaction() * faction.getTotalSupporter();
+            totalScore += faction.getSatisfaction() * faction.getTotalPartisans();
         }
-        this.globalSatisfaction = totalScore / globalPopulation;
+        this.globalSatisfaction = totalScore / this.globalPopulation;
     }
 
     public void calculateGlobalPopulationWithUpdate()
     {
         int population = 0;
-        for(Faction faction : this.allFactions)
+        for(Faction faction : this.factionsList)
         {
-            population += faction.getTotalSupporter();
+            population += faction.getTotalPartisans();
         }
         this.globalPopulation = population;
     }
 
-    public ArrayList<Faction> getAllFactions() {
-        return allFactions;
+    public ArrayList<Faction> getFactionsList() {
+        return factionsList;
     }
 
-    public void setAllFactions(ArrayList<Faction> allFactions) {
-        this.allFactions = allFactions;
+    public void setFactionsList(ArrayList<Faction> allFactions) {
+        this.factionsList = allFactions;
     }
 
     public double getGlobalSatisfaction() {

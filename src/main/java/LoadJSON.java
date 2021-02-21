@@ -21,9 +21,9 @@ public class LoadJSON {
         this.parser = new JSONParser();
     }
 
-    public void extractEvents(JSONArray eventsArray, ArrayList<Event> eventsList)
+    public void extractEvents(JSONArray eventsJSONArray, ArrayList<Event> eventsList)
     {
-        for(Object eventObject: eventsArray)
+        for(Object eventObject: eventsJSONArray)
         {
             JSONObject eventJSONObject = (JSONObject) eventObject;
             Event newEvent = new Event((String)eventJSONObject.get("name"));
@@ -31,26 +31,26 @@ public class LoadJSON {
             eventsList.add(newEvent);
         }
     }
-    public void extractChoices(JSONObject eventObject, Event event)
+    public void extractChoices(JSONObject eventJSONObject, Event event)
     {
-        JSONArray choicesArray = (JSONArray) eventObject.get("choices");
-        for(Object choiceObject: choicesArray)
+        JSONArray choicesJSONArray = (JSONArray) eventJSONObject.get("choices");
+        for(Object choiceObject: choicesJSONArray)
         {
             JSONObject choiceJSONObject = (JSONObject) choiceObject;
             Choice newChoice = new Choice((String)choiceJSONObject.get("choice"));
             if(choiceJSONObject.get("relatedEvents") != null)
             {
-                JSONArray relatedEvents = (JSONArray) choiceJSONObject.get("relatedEvents");
-                this.extractEvents(relatedEvents,newChoice.getRelatedEvents());
+                JSONArray relatedEventsJSONArray = (JSONArray) choiceJSONObject.get("relatedEvents");
+                this.extractEvents(relatedEventsJSONArray,newChoice.getRelatedEvents());
             }
             this.extractEffects(choiceJSONObject, newChoice);
             event.getChoices().add(newChoice);
         }
 
     }
-    public void extractEffects(JSONObject choiceObject, Choice choice)
+    public void extractEffects(JSONObject choiceJSONObject, Choice choice)
     {
-        JSONArray effectsArray = (JSONArray) choiceObject.get("effects");
+        JSONArray effectsArray = (JSONArray) choiceJSONObject.get("effects");
         for(Object effectObject : effectsArray)
         {
             JSONObject effectJSONObject = (JSONObject) effectObject;
@@ -72,40 +72,55 @@ public class LoadJSON {
 
         }
     }
-    public void extractEffectsActions(JSONObject actionsObject, ArrayList<Effect> effectList, String affectedType)
+    public void extractEffectsActions(JSONObject actionsJSONObject, ArrayList<Effect> effectList, String affectedType)
     {
-        for(Object name : actionsObject.keySet())
+        for(Object nameObject : actionsJSONObject.keySet())
         {
-            String affectedName = name.toString();
-            Long unitNumberChange = (Long) actionsObject.get(name.toString());
+            String affectedName = nameObject.toString();
+            Long unitNumberChange = (Long) actionsJSONObject.get(affectedName);
             //System.out.println("affectedType : " + affectedType + " affectedName : " + affectedName + " unitNumberChange : " + unitNumberChange.intValue());
             Effect effect = new Effect(affectedType, affectedName, unitNumberChange.intValue());
             effectList.add(effect);
         }
     }
-    public void extractFactions(JSONObject jsonFile)
+    public void extractFactions(JSONObject factionsJSONObject, ArrayList<Faction> factionsList)
     {
-        ArrayList<Faction> allFactions = new ArrayList<Faction>();
-        this.data.setAllFactions(allFactions);
+        for(Object factionObject : factionsJSONObject.keySet())
+        {
+            JSONObject factionJSONObject = (JSONObject) factionsJSONObject.get(factionObject);
+            String factionName = (String) factionsJSONObject.get("name");
+            Long factionSatisfaction = (Long) factionJSONObject.get("satisfactionPercentage");
+            Long factionPartisans = (Long) factionJSONObject.get("numberOfPartisans");
+            Faction newFaction = new Faction(factionName, factionSatisfaction.intValue(), factionPartisans.intValue());
+            factionsList.add(newFaction);
+        }
         this.data.calculateGlobalPopulationWithUpdate();
         this.data.calculateGlobalSatisfactionWithUpdate();
     }
-    public void extractData(JSONObject jsonFile)
+    public void extractStartParameters(JSONObject startParametersJSONObject)
     {
-        this.data.setAgriculturePercentage(0);
-        this.data.setDifficulty("");
-        this.data.setFoodUnits(0);
-        this.data.setIndustryPercentage(0);
-        this.data.setGlobalPopulation(0);
-        this.data.setTreasury(0);
+        String difficultyName = (String) startParametersJSONObject.keySet().iterator().next();
+        JSONObject difficultyJSONObject = (JSONObject) startParametersJSONObject.get(difficultyName);
+        Long agriculturePercentage = (Long) difficultyJSONObject.get("agriculturePercentage");
+        Long industryPercentage = (Long) difficultyJSONObject.get("industryPercentage");
+        Long treasury = (Long) difficultyJSONObject.get("treasury");
+        Long foodUnits = (Long) difficultyJSONObject.get("foodUnits");
+        this.data.setAgriculturePercentage(agriculturePercentage.intValue());
+        this.data.setDifficulty(difficultyName);
+        this.data.setFoodUnits(foodUnits.intValue());
+        this.data.setIndustryPercentage(industryPercentage.intValue());
+        this.data.setTreasury(treasury.intValue());
     }
     public void extractAll()
     {
         try(FileReader reader = new FileReader(this.fileName)) {
             JSONObject jsonFile = (JSONObject) parser.parse(reader);
             JSONArray eventsArray = (JSONArray) jsonFile.get("events");
-            this.extractFactions(jsonFile);
-            this.extractData(jsonFile);
+            JSONObject startParametersJSONObject = (JSONObject) jsonFile.get("gameStartParameters");
+            JSONObject difficultyParametersJSONObject = (JSONObject) startParametersJSONObject.get(startParametersJSONObject.keySet().iterator().next());
+            JSONObject factionsJSONObject = (JSONObject) difficultyParametersJSONObject.get("factions");
+            this.extractFactions(factionsJSONObject, this.data.getFactionsList());
+            this.extractStartParameters(startParametersJSONObject);
             this.extractEvents(eventsArray, this.data.getEvents());
         }
         catch (FileNotFoundException e) {

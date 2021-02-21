@@ -1,13 +1,13 @@
 public class Faction {
     private String name;
     private int satisfaction;
-    private int totalSupporter;
+    private int totalPartisans;
     private boolean isAlive;
 
-    public Faction(String name, int satisfaction, int totalSupporter) {
+    public Faction(String name, int satisfaction, int totalPartisans) {
         this.name = name;
         this.satisfaction = satisfaction;
-        this.totalSupporter = totalSupporter;
+        this.totalPartisans = totalPartisans;
         this.isAlive = true;
     }
 
@@ -27,12 +27,12 @@ public class Faction {
         this.satisfaction = satisfaction;
     }
 
-    public int getTotalSupporter() {
-        return totalSupporter;
+    public int getTotalPartisans() {
+        return totalPartisans;
     }
 
-    public void setTotalSupporter(int totalSupporter) {
-        this.totalSupporter = totalSupporter;
+    public void setTotalPartisans(int totalPartisans) {
+        this.totalPartisans = totalPartisans;
     }
 
     public boolean isAlive() {

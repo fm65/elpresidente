@@ -65,16 +65,19 @@ public class JSONTest {
     @org.junit.jupiter.api.Test
     public void testExtractFactions()
     {
-        jsonLoader.extractFactions(jsonFile);
-        assert(this.data.getAllFactions().size() > 0);
-        assertEquals(this.data.getGlobalPopulation(),80);
-        assertEquals(this.data.getGlobalSatisfaction(),5100);
+        JSONObject startParametersJSONObject = (JSONObject) this.jsonFile.get("gameStartParameters");
+        JSONObject difficultyParametersJSONObject = (JSONObject) startParametersJSONObject.get(startParametersJSONObject.keySet().iterator().next());
+        JSONObject factionsJSONObject = (JSONObject) difficultyParametersJSONObject.get("factions");
+        jsonLoader.extractFactions(factionsJSONObject, this.data.getFactionsList());
+        assertEquals(8,this.data.getFactionsList().size());
+        assertEquals(80, this.data.getGlobalPopulation());
+        assertEquals(63.75,this.data.getGlobalSatisfaction());
     }
 
     @org.junit.jupiter.api.Test
-    public void testExtractData()
+    public void testExtractStartParameters()
     {
-        jsonLoader.extractData(jsonFile);
+        jsonLoader.extractStartParameters((JSONObject) this.jsonFile.get("gameStartParameters"));
         assertEquals(this.data.getAgriculturePercentage(),40);
         assertEquals(this.data.getDifficulty(),"NORMAL");
         assertEquals(this.data.getIndustryPercentage(),35);
