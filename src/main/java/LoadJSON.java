@@ -54,20 +54,32 @@ public class LoadJSON {
         for(Object effectObject : effectsArray)
         {
             JSONObject effectJSONObject = (JSONObject) effectObject;
-            JSONObject actionJSONObject = (JSONObject) effectJSONObject.get(0);
-            extractEffectsActions(actionJSONObject);
+            for(Object actionObject : effectJSONObject.keySet())
+            {
+                String affectedType = actionObject.toString();
+                JSONObject actionJSONObject;
+                if(effectJSONObject.get(affectedType) instanceof Long)
+                {
+                    actionJSONObject = effectJSONObject;
+
+                }
+                else
+                {
+                    actionJSONObject = (JSONObject) effectJSONObject.get(affectedType);
+                }
+                extractEffectsActions(actionJSONObject, choice.getEffects(),affectedType );
+            }
+
         }
     }
-    public void extractEffectsActions(JSONObject actionsObject)
+    public void extractEffectsActions(JSONObject actionsObject, ArrayList<Effect> effectList, String affectedType)
     {
-        Iterator actionsIterator = actionsObject.keySet().iterator();
-        ArrayList<Effect> effectList = new ArrayList<Effect>();
-        String affectedType = actionsObject.toString();
-        System.out.println(affectedType);
-        while(actionsIterator.hasNext())
+        for(Object name : actionsObject.keySet())
         {
-            String affectedName = (String) actionsIterator.next();
-            Effect effect = new Effect(affectedType,affectedName,(int) actionsObject.get(actionsIterator.next()));
+            String affectedName = name.toString();
+            Long unitNumberChange = (Long) actionsObject.get(name.toString());
+            //System.out.println("affectedType : " + affectedType + " affectedName : " + affectedName + " unitNumberChange : " + unitNumberChange.intValue());
+            Effect effect = new Effect(affectedType, affectedName, unitNumberChange.intValue());
             effectList.add(effect);
         }
     }
