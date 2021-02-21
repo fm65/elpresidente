@@ -1,28 +1,28 @@
 public class Effect {
-    private String affectedFaction;
-    private String affectedRessource;
+    private String affectedObjectType;
+    private String affectedObjectName;
     private int unitNumberChange;
 
-    public Effect(String affectedFaction, String affectedRessource, int unitNumberChange) {
-        this.affectedFaction = affectedFaction;
-        this.affectedRessource = affectedRessource;
+    public Effect(String affectedObjectType, String affectedObjectName, int unitNumberChange) {
+        this.affectedObjectType = affectedObjectType;
+        this.affectedObjectName = affectedObjectName;
         this.unitNumberChange = unitNumberChange;
     }
 
-    public String getAffectedFaction() {
-        return affectedFaction;
+    public String getAffectedObjectType() {
+        return affectedObjectType;
     }
 
-    public void setAffectedFaction(String affectedFaction) {
-        this.affectedFaction = affectedFaction;
+    public void setAffectedObjectType(String affectedObjectType) {
+        this.affectedObjectType = affectedObjectType;
     }
 
-    public String getAffectedRessource() {
-        return affectedRessource;
+    public String getAffectedObjectName() {
+        return affectedObjectName;
     }
 
-    public void setAffectedRessource(String affectedRessource) {
-        this.affectedRessource = affectedRessource;
+    public void setAffectedObjectName(String affectedObjectName) {
+        this.affectedObjectName = affectedObjectName;
     }
 
     public int getUnitNumberChange() {
