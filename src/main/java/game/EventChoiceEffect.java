@@ -39,19 +39,19 @@ public class EventChoiceEffect {
 
     public void affectFactor()
     {
-        if(this.affectedObjectName.toLowerCase() == "treasury")
+        if(this.affectedObjectName.equalsIgnoreCase("treasury"))
         {
             this.affectTreasury();
         }
-        else if(this.affectedObjectName.toLowerCase() == "foodunits")
+        else if(this.affectedObjectName.equalsIgnoreCase("foodunits"))
         {
             this.affectFood();
         }
-        else if(this.affectedObjectName.toLowerCase() == "industry")
+        else if(this.affectedObjectName.equalsIgnoreCase("industry"))
         {
             this.affectIndustry();
         }
-        else if(this.affectedObjectName.toLowerCase() == "agriculture")
+        else if(this.affectedObjectName.equalsIgnoreCase("agriculture"))
         {
             this.affectAgriculture();
         }
@@ -96,16 +96,16 @@ public class EventChoiceEffect {
     {
         int oldAgriculture = this.data.getAgriculturePercentage();
         int newAgriculture = oldAgriculture + this.unitNumberChange;
-        if(newAgriculture + this.data.getIndustryPercentage() > 100)
+        if(newAgriculture + this.data.getAgriculturePercentage() > 100)
         {
-            newAgriculture = 100 - this.data.getIndustryPercentage();
+            newAgriculture = 100 - this.data.getAgriculturePercentage();
         }
         else if(newAgriculture < 0)
         {
             newAgriculture = 0;
         }
-        this.data.setIndustryPercentage(newAgriculture);
-        System.out.println("Votre industrie est passée de " + oldAgriculture + " à " + newAgriculture);
+        this.data.setAgriculturePercentage(newAgriculture);
+        System.out.println("Votre agriculture est passée de " + oldAgriculture + " à " + newAgriculture);
     }
 
     public void affectPartisans()

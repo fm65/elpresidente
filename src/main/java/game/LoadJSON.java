@@ -27,7 +27,7 @@ public class LoadJSON {
         for(Object eventObject: eventsJSONArray)
         {
             JSONObject eventJSONObject = (JSONObject) eventObject;
-            Event newEvent = new Event((String)eventJSONObject.get("name").toString());
+            Event newEvent = new Event(eventJSONObject.get("name").toString());
             this.extractEventChoices(eventJSONObject, newEvent);
             eventsList.add(newEvent);
         }

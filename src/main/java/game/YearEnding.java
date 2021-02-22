@@ -163,7 +163,8 @@ public class YearEnding {
 
     private void decreasePopulation(int foodUnits)
     {
-        int missingFoodPortion = (int) foodUnits / 4;
+        float missingFoodPortion = foodUnits / 4;
+        int missingFoodPortionInteger = (int) missingFoodPortion;
         Random random = new Random();
         for(int i = 0; i < missingFoodPortion; i++)
         {
@@ -171,7 +172,7 @@ public class YearEnding {
             Faction faction = this.data.getFactionsList().get(randomIndex);
             faction.setTotalPartisans(faction.getTotalPartisans() - 1);
         }
-        int satisfactionDecrease = missingFoodPortion * 2;
+        int satisfactionDecrease = missingFoodPortionInteger * 2;
         for(Faction faction: this.data.getFactionsList())
         {
             int newSatisfaction = faction.getSatisfaction() - satisfactionDecrease;

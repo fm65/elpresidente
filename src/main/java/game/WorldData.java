@@ -42,7 +42,7 @@ public class WorldData {
     {
         for(Faction faction : factionsList)
         {
-            if(faction.getName().toLowerCase().equals(factionName.toLowerCase()))
+            if(faction.getName().equalsIgnoreCase(factionName))
             {
                 return faction;
             }
