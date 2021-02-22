@@ -1,33 +1,36 @@
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.*;
+import java.util.Scanner;
+
 public class World {
     private WorldData data;
     private WorldActions actions;
     private int turnNumber;
     private String scenarioName;
+    private String filePath;
     public World() {
+        this.data = new WorldData();
+        this.actions = new WorldActions(this.data);
     }
     public void createData()
     {
 
     }
 
-    public void createDataWithJSON()
+    public void createDataWithJSON(String filePath)
     {
-        LoadJSON jsonLoader = new LoadJSON(scenarioName, this.data);
-        jsonLoader.extractEvents();
-        jsonLoader.extractChoices();
-        jsonLoader.extractEffects();
-        jsonLoader.extractFactions();
-        jsonLoader.extractData();
+        LoadJSON jsonLoader = new LoadJSON(filePath, this.data);
+        jsonLoader.extractAll();
     }
 
     public void executeActions()
     {
-        this.actions.iterateYears(this.data);
+        this.actions.iterateYears();
     }
-    public void getScenarios()
-    {
-        //read the name of the files in scenario folder
-    }
+
     public WorldData getData() {
         return this.data;
     }
@@ -50,5 +53,21 @@ public class World {
 
     public void setTurnNumber(int turnNumber) {
         this.turnNumber = turnNumber;
+    }
+
+    public String getScenarioName() {
+        return scenarioName;
+    }
+
+    public void setScenarioName(String scenarioName) {
+        this.scenarioName = scenarioName;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }
