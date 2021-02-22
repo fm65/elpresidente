@@ -25,15 +25,7 @@ public class Event {
 
     public EventChoice choose()
     {
-        Scanner input = new Scanner(System.in);
-        int choiceIndex = 0;
-        try {
-            choiceIndex  = input.nextInt();
-        }catch(InputMismatchException exception)
-        {
-            System.out.println("Je n'ai pas compris, veuillez réessayer.");
-            this.choose();
-        }
+        int choiceIndex = World.scanInteger();
         if(choiceIndex <= this.eventChoices.size() && choiceIndex > 0)
         {
             return this.eventChoices.get(choiceIndex - 1);

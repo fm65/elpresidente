@@ -35,17 +35,9 @@ public class YearEnding {
     {
         int choice = 0;
         ArrayList<Faction> factionsList = this.data.getFactionsList();
-        Scanner input = new Scanner(System.in);
-        try
-        {
-            choice = input.nextInt();
-        }catch (InputMismatchException exception)
-        {
-            System.out.println("Je n'ai pas compris, veuillez réessayer.");
-            this.bribeChoice();
-        }
+        choice = World.scanInteger();
         choice --;
-        if(choice < factionsList.size() && choice > 0)
+        if(choice < factionsList.size() && choice >= 0)
         {
             this.bribeFaction(factionsList.get(choice));
         }
@@ -115,16 +107,8 @@ public class YearEnding {
         System.out.println("Vous possédez actuellement " + this.data.getFoodUnits() +
                 " portions de nourriture, pour une population totale de " + this.data.getGlobalPopulation());
         System.out.println("Tapez 0 si vous ne souhaitez rien acheter");
-        Scanner input = new Scanner(System.in);
-        int newFoodUnits = 0;
-        try
-        {
-            newFoodUnits = input.nextInt();
-        }catch (InputMismatchException exception)
-        {
-            System.out.println("Je n'ai pas compris, veuillez réessayer.");
-            this.foodMarket();
-        }
+        int newFoodUnits = World.scanInteger();
+
         if(newFoodUnits == 0)
         {
             System.out.println("Vous avez décidé de ne rien acheter.");

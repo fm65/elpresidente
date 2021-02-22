@@ -12,9 +12,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class LoadJSON {
-    private String filePath;
-    private WorldData data;
-    private JSONParser parser;
+    private final String filePath;
+    private final WorldData data;
+    private final JSONParser parser;
 
     public LoadJSON(String filePath) {
         this.filePath = filePath;

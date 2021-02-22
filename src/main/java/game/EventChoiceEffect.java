@@ -6,7 +6,7 @@ public class EventChoiceEffect {
     private String actionType;
     private String affectedObjectName;
     private int unitNumberChange;
-    private WorldData data;
+    private final WorldData data;
 
     public EventChoiceEffect(String actionType, String affectedObjectName, int unitNumberChange) {
         this.actionType = actionType;
@@ -96,9 +96,9 @@ public class EventChoiceEffect {
     {
         int oldAgriculture = this.data.getAgriculturePercentage();
         int newAgriculture = oldAgriculture + this.unitNumberChange;
-        if(newAgriculture + this.data.getAgriculturePercentage() > 100)
+        if(newAgriculture + this.data.getIndustryPercentage() > 100)
         {
-            newAgriculture = 100 - this.data.getAgriculturePercentage();
+            newAgriculture = 100 - this.data.getIndustryPercentage();
         }
         else if(newAgriculture < 0)
         {

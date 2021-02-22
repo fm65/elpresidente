@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class WorldActions {
     private final String[] seasons = {"hiver","printemps","été","automne"};
-    private WorldData data;
+    private final WorldData data;
 
     public WorldActions() {
         this.data = World.data;

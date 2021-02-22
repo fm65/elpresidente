@@ -23,15 +23,7 @@ public class ScenarioSelector {
         String[] fileNamesArray = scenarioDirectory.list();
         this.listScenarios(fileNamesArray);
         System.out.println("\nVeuillez rentrer le numéro du scénario auquel vous voulez jouer\n");
-        Scanner input = new Scanner(System.in);
-        int fileIndex = 0;
-        try {
-            fileIndex  = input.nextInt();
-        }catch(InputMismatchException exception)
-        {
-            System.out.println("Je n'ai pas compris, veuillez réessayer.");
-            this.selectScenario();
-        }
+        int fileIndex = World.scanInteger();
 
         System.out.println("Vous avez choisi " + fileIndex + ": ");
         if(fileIndex <= fileNamesArray.length && fileIndex > 0)

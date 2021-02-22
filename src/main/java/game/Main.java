@@ -12,17 +12,7 @@ public class Main {
         do{
                 System.out.println("A quel mode de jeu désirez vous jouer:");
                 System.out.println("1) Scénario\n2) Bac à sable\n3) Quitter le jeu");
-                Scanner input = new Scanner(System.in);
-                try
-                {
-                    choice = input.nextInt();
-                }catch (InputMismatchException exception)
-                {
-                    System.out.println("Je n'ai pas compris, veuillez réessayer.");
-                    continue;
-                }
-
-
+                choice = World.scanInteger();
                 if(choice == 1)
                 {
                     System.out.println("Vous avez choisi de jouer au mode scénario");
