@@ -34,7 +34,7 @@ public class Event {
         }
         if(choiceIndex <= this.choices.size() && choiceIndex > 0)
         {
-            return this.choices.get(choiceIndex);
+            return this.choices.get(choiceIndex - 1);
         }
         else
         {
