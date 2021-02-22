@@ -11,6 +11,10 @@ public class Faction {
         this.isAlive = true;
     }
 
+    public int getBribePrice()
+    {
+        return totalPartisans * 15;
+    }
     public String getName() {
         return name;
     }

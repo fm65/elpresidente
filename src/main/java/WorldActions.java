@@ -57,15 +57,15 @@ public class WorldActions {
     {
         eventChoice.applyEffects();
     }
-    
+
      public void endYear()
      {
         System.out.println("L'année est finie, vous allez devoir prendre des décisions !");
         YearEnding yearEnding = new YearEnding();
-         yearEnding.bribe();
-         yearEnding.foodMarket();
-         yearEnding.yearReview();
-         yearEnding.updatePopulation();
+        yearEnding.bribe();
+        yearEnding.foodMarket();
+        yearEnding.yearReview();
+        yearEnding.updatePopulation();
      }
 
 

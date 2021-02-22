@@ -63,6 +63,13 @@ public class YearEnding {
     private void bribeFaction(Faction faction)
     {
         System.out.println("Vous avez choisi de faire un pot de vin à la faction " + faction.getName());
+        if(faction.getBribePrice() > this.data.getTreasury())
+        {
+            System.out.println("Il semble que vous n'ayiez pas assez d'argent pour faire ça.\nVeuillez réessayer");
+            this.bribeChoice();
+            return;
+        }
+        this.data.setTreasury(this.data.getTreasury() - faction.getBribePrice());
         int oldSatisfaction = faction.getSatisfaction();
         double newSatisfactionDouble = oldSatisfaction * 1.1;
         int newSatisfaction = (int) newSatisfactionDouble;
@@ -75,6 +82,33 @@ public class YearEnding {
     }
 
     public void foodMarket() {
+        System.out.println("Souhaitez vous acheter de la nourriture ? Pour rappel cela coûte 8$ par portion.\nTapez 0 si vous ne souhaitez rien acheter");
+        Scanner input = new Scanner(System.in);
+        int newFoodUnits = 0;
+        try
+        {
+            newFoodUnits = input.nextInt();
+        }catch (InputMismatchException exception)
+        {
+            System.out.println("Je n'ai pas compris, veuillez réessayer.");
+            this.foodMarket();
+        }
+        int cost = newFoodUnits * 8;
+        System.out.println("Vous avez décidé d'acheter " + newFoodUnits + " unités de nourriture.");
+        System.out.println("Cela vous coûte " + cost + "$");
+
+        if(this.data.getTreasury() > cost)
+        {
+            this.data.setFoodUnits(this.data.getFoodUnits() + newFoodUnits);
+            this.data.setTreasury(this.data.getTreasury() - cost);
+            System.out.println("Vous avez maintenant " + this.data.getFoodUnits() + " portions de nourriture");
+            System.out.println("Votre trésorerie est de " + this.data.getTreasury() + "$");
+        }
+        else
+        {
+            System.out.println("Oups, il semble que vous n'ayez pas assez d'argent pour acheter tout ça.\nVeuillez réessayer");
+            this.foodMarket();
+        }
 
     }
 
