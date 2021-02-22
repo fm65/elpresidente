@@ -34,6 +34,10 @@ public class Faction {
         {
            this.satisfaction = 0;
         }
+        else if(satisfaction > 100)
+        {
+            this.satisfaction = 100;
+        }
         else
         {
             this.satisfaction = satisfaction;

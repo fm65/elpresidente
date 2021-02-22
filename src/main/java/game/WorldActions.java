@@ -19,7 +19,8 @@ public class WorldActions {
              double oldGlobalSatisfaction = this.data.getGlobalSatisfaction();
              this.data.calculateGlobalPopulationWithUpdate();
              this.data.calculateGlobalSatisfactionWithUpdate();
-             System.out.println("La satisfaction globale est passée de " + oldGlobalSatisfaction + " à " + this.data.getGlobalSatisfaction());
+             System.out.println("La satisfaction globale est passée de " + String.format("%.2f",oldGlobalSatisfaction)
+                     + " à " + String.format("%.2f",this.data.getGlobalSatisfaction()));
              if(this.data.getGlobalSatisfaction() < 50)
              {
                  System.out.println("La satisfaction a trop descendu, vous avez perdu");

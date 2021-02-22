@@ -42,9 +42,6 @@ public class WorldData {
     {
         for(Faction faction : factionsList)
         {
-           // System.out.println("taille liste: " + factionsList.size());
-           // System.out.println("faction name : " + faction.getName().toLowerCase());
-           // System.out.println("faction parameter : " + factionName.toLowerCase());
             if(faction.getName().toLowerCase().equals(factionName.toLowerCase()))
             {
                 return faction;

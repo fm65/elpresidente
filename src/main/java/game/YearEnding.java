@@ -98,7 +98,6 @@ public class YearEnding {
         System.out.println("Bonne nouvelle : votre agriculture est excédentaire, et il y a donc de la natalité sur votre île.");
         Random random = new Random();
         float populationIncreasePercentage = 1 + (random.nextInt(10)/(float)100);
-        System.out.println("population percentage : " + populationIncreasePercentage);
         int newPopulation  = (int) (this.data.getGlobalPopulation() * populationIncreasePercentage);
         System.out.println("Votre population passe de " + this.data.getGlobalPopulation() + " à " + newPopulation);
         this.data.setGlobalPopulation(newPopulation);
