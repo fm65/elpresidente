@@ -55,14 +55,14 @@ public class EventChoiceEffect {
         }
 
     }
-    public void affectTreasury()
+    private void affectTreasury()
     {
         int oldTreasury = this.data.getTreasury();
         int newTreasury = oldTreasury + this.unitNumberChange;
         this.data.setTreasury(newTreasury);
         System.out.println("Votre trésorerie est passée de " + oldTreasury + " à " + newTreasury);
     }
-    public void affectFood()
+    private void affectFood()
     {
         int oldFoodUnits = data.getFoodUnits();
         int newFoodUnits = oldFoodUnits + this.unitNumberChange;
@@ -74,7 +74,7 @@ public class EventChoiceEffect {
         System.out.println("Vos unités de nourriture sont passées de " + oldFoodUnits + " à " + newFoodUnits);
     }
 
-    public void affectIndustry()
+    private void affectIndustry()
     {
         int oldIndustry = this.data.getIndustryPercentage();
         int newIndustry = oldIndustry + this.unitNumberChange;
@@ -90,7 +90,7 @@ public class EventChoiceEffect {
         System.out.println("Votre industrie est passée de " + oldIndustry + " à " + newIndustry);
     }
 
-    public void affectAgriculture()
+    private void affectAgriculture()
     {
         int oldAgriculture = this.data.getAgriculturePercentage();
         int newAgriculture = oldAgriculture + this.unitNumberChange;
