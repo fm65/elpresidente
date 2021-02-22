@@ -11,8 +11,9 @@ public class EventChoice {
         this.relatedEventsList = new ArrayList<Event>();
     }
 
-    public void applyEffects(WorldData data)
+    public void applyEffects()
     {
+        WorldData data = World.data;
         if(this.eventChoiceEffectList.size() > 0)
         {
             for(EventChoiceEffect eventChoiceEffect : eventChoiceEffectList)
@@ -27,11 +28,11 @@ public class EventChoice {
                 }
                 else if(eventChoiceEffect.getActionType().equals("actionOnFactor"))
                 {
-                    eventChoiceEffect.affectFactor(data);
+                    eventChoiceEffect.affectFactor();
                 }
                 else if(eventChoiceEffect.getActionType().equals("partisans"))
                 {
-                    eventChoiceEffect.affectPartisans(data);
+                    eventChoiceEffect.affectPartisans();
                 }
                 else
                 {

@@ -21,7 +21,7 @@ public class JSONTest {
     @BeforeEach
     protected void setUp ()  {
         this.data = new WorldData();
-        this.jsonLoader = new LoadJSON("scenario/attackOnTitans.json",data);
+        this.jsonLoader = new LoadJSON("scenario/attackOnTitans.json");
         this.parser = new JSONParser();
         try(FileReader reader = new FileReader("scenario/attackOnTitans.json")){
             this.jsonFile  = (JSONObject) this.parser.parse(reader);

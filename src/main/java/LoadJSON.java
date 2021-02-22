@@ -14,9 +14,9 @@ public class LoadJSON {
     private WorldData data;
     private JSONParser parser;
 
-    public LoadJSON(String filePath, WorldData data) {
+    public LoadJSON(String filePath) {
         this.filePath = filePath;
-        this.data = data;
+        this.data = World.data;
         this.parser = new JSONParser();
     }
 

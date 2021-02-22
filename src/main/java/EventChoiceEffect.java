@@ -4,11 +4,13 @@ public class EventChoiceEffect {
     private String actionType;
     private String affectedObjectName;
     private int unitNumberChange;
+    private WorldData data;
 
     public EventChoiceEffect(String actionType, String affectedObjectName, int unitNumberChange) {
         this.actionType = actionType;
         this.affectedObjectName = affectedObjectName;
         this.unitNumberChange = unitNumberChange;
+        this.data = World.data;
     }
 
     public void affectFaction(Faction faction)
@@ -33,34 +35,34 @@ public class EventChoiceEffect {
         System.out.println("La satisfaction de " + faction.getName() + " est passée de " + oldSatisfaction + " à " + faction.getSatisfaction());
     }
 
-    public void affectFactor(WorldData data)
+    public void affectFactor()
     {
         if(this.affectedObjectName.toLowerCase() == "treasury")
         {
-            this.affectTreasury(data);
+            this.affectTreasury();
         }
         else if(this.affectedObjectName.toLowerCase() == "foodunits")
         {
-            this.affectFood(data);
+            this.affectFood();
         }
         else if(this.affectedObjectName.toLowerCase() == "industry")
         {
-            this.affectIndustry(data);
+            this.affectIndustry();
         }
         else if(this.affectedObjectName.toLowerCase() == "agriculture")
         {
-            this.affectAgriculture(data);
+            this.affectAgriculture();
         }
 
     }
-    public void affectTreasury(WorldData data)
+    public void affectTreasury()
     {
-        int oldTreasury = data.getTreasury();
+        int oldTreasury = this.data.getTreasury();
         int newTreasury = oldTreasury + this.unitNumberChange;
-        data.setTreasury(newTreasury);
+        this.data.setTreasury(newTreasury);
         System.out.println("Votre trésorerie est passée de " + oldTreasury + " à " + newTreasury);
     }
-    public void affectFood(WorldData data)
+    public void affectFood()
     {
         int oldFoodUnits = data.getFoodUnits();
         int newFoodUnits = oldFoodUnits + this.unitNumberChange;
@@ -68,54 +70,54 @@ public class EventChoiceEffect {
         {
             newFoodUnits = 0;
         }
-        data.setFoodUnits(newFoodUnits);
+        this.data.setFoodUnits(newFoodUnits);
         System.out.println("Vos unités de nourriture sont passées de " + oldFoodUnits + " à " + newFoodUnits);
     }
 
-    public void affectIndustry(WorldData data)
+    public void affectIndustry()
     {
-        int oldIndustry = data.getIndustryPercentage();
+        int oldIndustry = this.data.getIndustryPercentage();
         int newIndustry = oldIndustry + this.unitNumberChange;
-        if(newIndustry + data.getAgriculturePercentage() > 100)
+        if(newIndustry + this.data.getAgriculturePercentage() > 100)
         {
-            newIndustry = 100 - data.getAgriculturePercentage();
+            newIndustry = 100 - this.data.getAgriculturePercentage();
         }
         else if(newIndustry < 0)
         {
             newIndustry = 0;
         }
-        data.setIndustryPercentage(newIndustry);
+        this.data.setIndustryPercentage(newIndustry);
         System.out.println("Votre industrie est passée de " + oldIndustry + " à " + newIndustry);
     }
 
-    public void affectAgriculture(WorldData data)
+    public void affectAgriculture()
     {
-        int oldAgriculture = data.getAgriculturePercentage();
+        int oldAgriculture = this.data.getAgriculturePercentage();
         int newAgriculture = oldAgriculture + this.unitNumberChange;
-        if(newAgriculture + data.getIndustryPercentage() > 100)
+        if(newAgriculture + this.data.getIndustryPercentage() > 100)
         {
-            newAgriculture = 100 - data.getIndustryPercentage();
+            newAgriculture = 100 - this.data.getIndustryPercentage();
         }
         else if(newAgriculture < 0)
         {
             newAgriculture = 0;
         }
-        data.setIndustryPercentage(newAgriculture);
+        this.data.setIndustryPercentage(newAgriculture);
         System.out.println("Votre industrie est passée de " + oldAgriculture + " à " + newAgriculture);
     }
 
-    public void affectPartisans(WorldData data)
+    public void affectPartisans()
     {
-        int oldGlobalPopulation = data.getGlobalPopulation();
+        int oldGlobalPopulation = this.data.getGlobalPopulation();
         Random random = new Random();
         for(int i = 0; i < Integer.signum(unitNumberChange) * unitNumberChange; i++)
         {
-            int index = random.nextInt(data.getFactionsList().size());
-            Faction affectedFaction = data.getFactionsList().get(index);
+            int index = random.nextInt(this.data.getFactionsList().size());
+            Faction affectedFaction = this.data.getFactionsList().get(index);
             affectedFaction.setTotalPartisans(affectedFaction.getTotalPartisans()+Integer.signum(unitNumberChange));
         }
-        data.calculateGlobalPopulationWithUpdate();
-        System.out.println("Votre population est passée de " + oldGlobalPopulation + " à " + data.getGlobalPopulation());
+        this.data.calculateGlobalPopulationWithUpdate();
+        System.out.println("Votre population est passée de " + oldGlobalPopulation + " à " + this.data.getGlobalPopulation());
     }
     public String getActionType() {
         return actionType;

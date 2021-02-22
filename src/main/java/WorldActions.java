@@ -7,8 +7,8 @@ public class WorldActions {
     private final String[] seasons = {"hiver","printemps","été","automne"};
     private WorldData data;
 
-    public WorldActions(WorldData data) {
-        this.data = data;
+    public WorldActions() {
+        this.data = World.data;
     }
 
     public boolean iterateSeasons()
@@ -134,7 +134,7 @@ public class WorldActions {
 
     public void applyChoiceEffects(EventChoice eventChoice)
     {
-        eventChoice.applyEffects(this.data);
+        eventChoice.applyEffects();
     }
 
     public void updatePopulation() {

@@ -1,13 +1,12 @@
 
 public class World {
-    private WorldData data;
+    public static final WorldData data = new WorldData();
     private WorldActions actions;
     private int yearNumber;
     private String scenarioName;
     private String filePath;
     public World() {
-        this.data = new WorldData();
-        this.actions = new WorldActions(this.data);
+        this.actions = new WorldActions();
     }
     public void createData()
     {
@@ -16,7 +15,7 @@ public class World {
 
     public void createDataWithJSON(String filePath)
     {
-        LoadJSON jsonLoader = new LoadJSON(filePath, this.data);
+        LoadJSON jsonLoader = new LoadJSON(filePath);
         jsonLoader.extractAll();
     }
 
@@ -24,14 +23,6 @@ public class World {
     {
         this.yearNumber = this.actions.iterateYears();
         System.out.println("Bravo, vous avez tenu " + yearNumber + " années");
-    }
-
-    public WorldData getData() {
-        return this.data;
-    }
-
-    public void setData(WorldData data) {
-        this.data = data;
     }
 
     public WorldActions getActions() {
