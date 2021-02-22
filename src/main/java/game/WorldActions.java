@@ -64,7 +64,6 @@ public class WorldActions {
         yearEnding.bribe();
         yearEnding.foodMarket();
         yearEnding.yearReview();
-        yearEnding.updatePopulation();
      }
 
 

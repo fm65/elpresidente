@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class YearEnding {
@@ -80,19 +81,41 @@ public class YearEnding {
     }
 
     public void yearReview() {
-
+        this.reviewAgriculture();
+        this.reviewIndustry();
+        this.reviewFood();
     }
-    public void reviewAgriculture()
+    private void reviewAgriculture()
     {
-
+        int foodGenerated = this.data.getAgriculturePercentage() * 40;
+        int foodNeeded = this.data.getGlobalPopulation()*4;
+        if(foodGenerated > foodNeeded)
+        {
+            this.increasePopulation();
+        }
     }
-    public void reviewIndustry()
+    private void increasePopulation() {
+        System.out.println("Bonne nouvelle : votre agriculture est excédentaire, et il y a donc de la natalité sur votre île.");
+        Random random = new Random();
+        float populationIncreasePercentage = 1 + (random.nextInt(10)/(float)100);
+        System.out.println("population percentage : " + populationIncreasePercentage);
+        int newPopulation  = (int) (this.data.getGlobalPopulation() * populationIncreasePercentage);
+        System.out.println("Votre population passe de " + this.data.getGlobalPopulation() + " à " + newPopulation);
+        this.data.setGlobalPopulation(newPopulation);
+    }
+    private void reviewIndustry()
     {
-
+        System.out.println("Bonne nouvelle : votre industrie vous rapporte de l'argent.");
+        int newTreasury  = this.data.getTreasury() + this.data.getIndustryPercentage() * 10;
+        System.out.print("Votre trésorerie passe de " + this.data.getTreasury() + " à " + newTreasury);
+        this.data.setTreasury(newTreasury);
     }
 
     public void foodMarket() {
-        System.out.println("Souhaitez vous acheter de la nourriture ? Pour rappel cela coûte 8$ par portion.\nTapez 0 si vous ne souhaitez rien acheter");
+        System.out.println("Souhaitez vous acheter de la nourriture ? Pour rappel cela coûte 8$ par portion.");
+        System.out.println("Vous possédez actuellement " + this.data.getFoodUnits() +
+                " portions de nourriture, pour une population totale de " + this.data.getGlobalPopulation());
+        System.out.println("Tapez 0 si vous ne souhaitez rien acheter");
         Scanner input = new Scanner(System.in);
         int newFoodUnits = 0;
         try
@@ -102,6 +125,11 @@ public class YearEnding {
         {
             System.out.println("Je n'ai pas compris, veuillez réessayer.");
             this.foodMarket();
+        }
+        if(newFoodUnits == 0)
+        {
+            System.out.println("Vous avez décidé de ne rien acheter.");
+            return;
         }
         int cost = newFoodUnits * 8;
         System.out.println("Vous avez décidé d'acheter " + newFoodUnits + " unités de nourriture.");
@@ -122,7 +150,39 @@ public class YearEnding {
 
     }
 
-    public void updatePopulation() {
-        this.data.setGlobalPopulation(0);
+    public void reviewFood()
+    {
+        int foodNeeded = this.data.getGlobalPopulation() * 4;
+        int newFoodUnits = this.data.getFoodUnits() - foodNeeded;
+        if(newFoodUnits < 0)
+        {
+            this.decreasePopulation(newFoodUnits);
+            newFoodUnits = 0;
+        }
+        this.data.setFoodUnits(newFoodUnits);
     }
+
+    private void decreasePopulation(int foodUnits)
+    {
+        int missingFoodPortion = (int) foodUnits / 4;
+        Random random = new Random();
+        for(int i = 0; i < missingFoodPortion; i++)
+        {
+            int randomIndex = random.nextInt(this.data.getFactionsList().size());
+            Faction faction = this.data.getFactionsList().get(randomIndex);
+            faction.setTotalPartisans(faction.getTotalPartisans() - 1);
+        }
+        int satisfactionDecrease = missingFoodPortion * 2;
+        for(Faction faction: this.data.getFactionsList())
+        {
+            int newSatisfaction = faction.getSatisfaction() - satisfactionDecrease;
+            faction.setSatisfaction(newSatisfaction);
+            if(newSatisfaction <= 0)
+            {
+                faction.setAlive(false);
+            }
+        }
+    }
+
+
 }

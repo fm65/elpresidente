@@ -30,7 +30,14 @@ public class Faction {
     }
 
     public void setSatisfaction(int satisfaction) {
-        this.satisfaction = satisfaction;
+        if(satisfaction <= 0)
+        {
+           this.satisfaction = 0;
+        }
+        else
+        {
+            this.satisfaction = satisfaction;
+        }
     }
 
     public int getTotalPartisans() {
@@ -46,6 +53,13 @@ public class Faction {
     }
 
     public void setAlive(boolean alive) {
-        isAlive = alive;
+        if(alive)
+        {
+            isAlive = alive;
+        }
+        else
+        {
+            System.out.println("La faction " + this.name + " a atteint une satisfaction de 0. Elle ne pourra plus remonter");
+        }
     }
 }
