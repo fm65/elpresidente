@@ -34,47 +34,65 @@ public class Effect {
     {
         if(this.affectedObjectName.toLowerCase() == "treasury")
         {
-            int newTreasury = data.getTreasury() + this.unitNumberChange;
-            data.setTreasury(newTreasury);
+            this.affectTreasury(data);
         }
         else if(this.affectedObjectName.toLowerCase() == "foodunits")
-        {//extraire vers une fonction
-            int newFoodUnits = data.getFoodUnits() + this.unitNumberChange;
-            if(newFoodUnits < 0)
-            {
-                data.setFoodUnits(0);
-            }
-            else
-            {
-                data.setFoodUnits(newFoodUnits);
-            }
+        {
+            this.affectFood(data);
         }
         else if(this.affectedObjectName.toLowerCase() == "industry")
-        {//extraire vers une fonction
-            int newIndustry = data.getIndustryPercentage() + this.unitNumberChange;
-            if(newIndustry + data.getAgriculturePercentage() > 100)
-            {
-                newIndustry = 100 - data.getAgriculturePercentage();
-            }
-            else if(newIndustry < 0)
-            {
-                newIndustry = 0;
-            }
-            data.setIndustryPercentage(newIndustry);
+        {
+            this.affectIndustry(data);
         }
         else if(this.affectedObjectName.toLowerCase() == "agriculture")
-        {//extraire vers une fonction
-            int newAgriculture = data.getAgriculturePercentage() + this.unitNumberChange;
-            if(newAgriculture + data.getIndustryPercentage() > 100)
-            {
-                newAgriculture = 100 - data.getIndustryPercentage();
-            }
-            else if(newAgriculture < 0)
-            {
-                newAgriculture = 0;
-            }
-            data.setIndustryPercentage(newAgriculture);
+        {
+            this.affectAgriculture(data);
         }
+    }
+    public void affectTreasury(WorldData data)
+    {
+        int newTreasury = data.getTreasury() + this.unitNumberChange;
+        data.setTreasury(newTreasury);
+    }
+    public void affectFood(WorldData data)
+    {
+        int newFoodUnits = data.getFoodUnits() + this.unitNumberChange;
+        if(newFoodUnits < 0)
+        {
+            data.setFoodUnits(0);
+        }
+        else
+        {
+            data.setFoodUnits(newFoodUnits);
+        }
+    }
+
+    public void affectIndustry(WorldData data)
+    {
+        int newIndustry = data.getIndustryPercentage() + this.unitNumberChange;
+        if(newIndustry + data.getAgriculturePercentage() > 100)
+        {
+            newIndustry = 100 - data.getAgriculturePercentage();
+        }
+        else if(newIndustry < 0)
+        {
+            newIndustry = 0;
+        }
+        data.setIndustryPercentage(newIndustry);
+    }
+
+    public void affectAgriculture(WorldData data)
+    {
+        int newAgriculture = data.getAgriculturePercentage() + this.unitNumberChange;
+        if(newAgriculture + data.getIndustryPercentage() > 100)
+        {
+            newAgriculture = 100 - data.getIndustryPercentage();
+        }
+        else if(newAgriculture < 0)
+        {
+            newAgriculture = 0;
+        }
+        data.setIndustryPercentage(newAgriculture);
     }
 
     public void affectPartisans(WorldData data)
