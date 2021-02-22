@@ -261,7 +261,7 @@
       "name": "Une guerre civile démarre en Chine, les Soviétiques envoient leurs alliés",
       "choices": [
         {
-          "choice": "J'envoie les miens auss",
+          "choice": "J'envoie les miens aussi",
           "effects": [
             {
               "actionOnFaction": {
@@ -277,7 +277,7 @@
           ]
         },
         {
-          "choice": "J'attends que les choses se passent'",
+          "choice": "J'attends que les choses se passent",
           "effects": [
             {
               "actionOnFaction": {

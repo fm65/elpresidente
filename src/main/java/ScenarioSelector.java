@@ -58,6 +58,7 @@ public class ScenarioSelector {
             System.out.println(i + ") ");
             this.displayScenarioNameStoryDifficulty(fileName);
             i++;
+            World.waitForEnter("\nAppuyez sur entrée pour afficher le scénario suivant");
         }
         System.out.println("\t\t===========");
         System.out.println(i + ") Revenir au menu");

@@ -1,9 +1,3 @@
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.*;
-import java.util.Scanner;
 
 public class World {
     private WorldData data;
@@ -48,12 +42,12 @@ public class World {
         this.actions = actions;
     }
 
-    public int getTurnNumber() {
-        return turnNumber;
+    public int getYearNumber() {
+        return yearNumber;
     }
 
-    public void setTurnNumber(int turnNumber) {
-        this.turnNumber = turnNumber;
+    public void setYearNumber(int yearNumber) {
+        this.yearNumber = yearNumber;
     }
 
     public String getScenarioName() {
@@ -70,5 +64,10 @@ public class World {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+    public static void waitForEnter(String message)
+    {
+        System.out.println(message);
+        try{System.in.read();}catch(Exception e){	e.printStackTrace();}
     }
 }

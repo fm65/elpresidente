@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
+import java.util.Scanner;
 
 public class WorldActions {
     private final String[] seasons = {"hiver","printemps","été","automne"};
@@ -12,6 +15,7 @@ public class WorldActions {
      {
          for(int i = 0; i < seasons.length; i++)
          {
+             World.waitForEnter("\nAppuyez sur entrée pour passer à la saison suivante");
              this.callEvent(seasons[i]);
              double oldGlobalSatisfaction = this.data.getGlobalSatisfaction();
              this.data.calculateGlobalPopulationWithUpdate();
@@ -23,6 +27,7 @@ public class WorldActions {
                  return false;
              }
          }
+         World.waitForEnter("\nAppuyez sur entrée pour finir l'année");
          return true;
      }
 
@@ -44,13 +49,13 @@ public class WorldActions {
          System.out.println("Un nouvel évènement est arrivé ! \n");
          this.data.getEvents().get(randomIndex).displayChoices();
          System.out.println("\nVeuillez entrer le numéro de votre choix\n");
-         Choice choice = this.data.getEvents().get(randomIndex).choose();
-         this.applyChoiceEffects(choice);
+         EventChoice eventChoice = this.data.getEvents().get(randomIndex).choose();
+         this.applyChoiceEffects(eventChoice);
      }
 
      public void endYear()
      {
-
+        System.out.println("L'année est finie, vous allez devoir prendre des décisions !");
          this.bribe();
          this.foodMarket();
          this.yearReview();
@@ -58,7 +63,65 @@ public class WorldActions {
      }
 
     public void bribe() {
+        System.out.println("Souhaitez vous donner un pot de vin à une faction ?");
+        System.out.println("Pour rappel, si vous payez 15$ par partisan d'une faction, la satisfaction de cette faction augmentera de 10%");
+        System.out.println("Vous disposez actuellement de " + data.getTreasury() + "$");
+        int i = 1;
+        for(Faction faction : this.data.getFactionsList())
+        {
+            System.out.print("\n" + i + ") " + faction.getName());
+            System.out.print(" partisans : " + faction.getTotalPartisans() + " satisfaction : " + faction.getSatisfaction());
+            System.out.println("\n\tPrix du pot de vin : " + 15*faction.getTotalPartisans());
+            i++;
+        }
+        System.out.println(i + ") Ne pas faire de pot de vin");
+        if(this.bribeChoice())
+        {
+            this.bribe();
+        }
 
+    }
+
+    public boolean bribeChoice()
+    {
+        int choice = 0;
+        ArrayList<Faction> factionsList = this.data.getFactionsList();
+        Scanner input = new Scanner(System.in);
+        try
+        {
+            choice = input.nextInt();
+        }catch (InputMismatchException exception)
+        {
+            System.out.println("Je n'ai pas compris, veuillez réessayer.");
+            this.bribeChoice();
+        }
+        choice --;
+        if(choice < factionsList.size() && choice > 0)
+        {
+            this.bribeFaction(factionsList.get(choice));
+        }
+        else if(choice == factionsList.size())
+        {
+            System.out.println("Vous avez choisi de ne pas faire de pot de vin.");
+            System.out.println("Passons à la suite");
+            return false;
+        }
+        else
+        {
+            System.out.println("Mauvais chiffre, veuillez réessayer");
+            this.bribeChoice();
+        }
+        return true;
+    }
+
+    public void bribeFaction(Faction faction)
+    {
+        System.out.println("Vous avez choisi de faire un pot de vin à la faction " + faction.getName());
+        int oldSatisfaction = faction.getSatisfaction();
+        double newSatisfactionDouble = oldSatisfaction * 1.1;
+        int newSatisfaction = (int) newSatisfactionDouble;
+        faction.setSatisfaction(newSatisfaction);
+        System.out.println("La nouvelle satisfaction de " + faction.getName() + " est de " + faction.getSatisfaction());
     }
 
     public void yearReview() {
@@ -69,9 +132,9 @@ public class WorldActions {
 
     }
 
-    public void applyChoiceEffects(Choice choice)
+    public void applyChoiceEffects(EventChoice eventChoice)
     {
-        choice.applyEffects(this.data);
+        eventChoice.applyEffects(this.data);
     }
 
     public void updatePopulation() {
