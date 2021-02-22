@@ -3,25 +3,25 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Event {
-    private ArrayList<Choice> choices;
+    private ArrayList<EventChoice> eventChoices;
     private String description;
 
     public Event(String description) {
         this.description = description;
-        this.choices = new ArrayList<Choice>();
+        this.eventChoices = new ArrayList<EventChoice>();
     }
 
     public void displayChoices()
     {
         System.out.println(this.description);
         System.out.println("\nQu'allez vous faire?\n");
-        for(int i = 0; i < this.choices.size(); i++)
+        for(int i = 0; i < this.eventChoices.size(); i++)
         {
-            System.out.println(i+1 + ") " + this.choices.get(i).getDescription());
+            System.out.println(i+1 + ") " + this.eventChoices.get(i).getDescription());
         }
     }
 
-    public Choice choose()
+    public EventChoice choose()
     {
         Scanner input = new Scanner(System.in);
         int choiceIndex = 0;
@@ -32,9 +32,9 @@ public class Event {
             System.out.println("Je n'ai pas compris, veuillez réessayer.");
             this.choose();
         }
-        if(choiceIndex <= this.choices.size() && choiceIndex > 0)
+        if(choiceIndex <= this.eventChoices.size() && choiceIndex > 0)
         {
-            return this.choices.get(choiceIndex - 1);
+            return this.eventChoices.get(choiceIndex - 1);
         }
         else
         {
@@ -44,12 +44,12 @@ public class Event {
         //if related events, then add the related events to the worldata event list
         return null;
     }
-    public ArrayList<Choice> getChoices() {
-        return choices;
+    public ArrayList<EventChoice> getEventChoices() {
+        return eventChoices;
     }
 
-    public void setChoices(ArrayList<Choice> choices) {
-        this.choices = choices;
+    public void setEventChoices(ArrayList<EventChoice> eventChoices) {
+        this.eventChoices = eventChoices;
     }
 
     public String getDescription() {
