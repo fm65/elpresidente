@@ -1,11 +1,11 @@
 import java.util.Random;
 
-public class Effect {
+public class EventChoiceEffect {
     private String actionType;
     private String affectedObjectName;
     private int unitNumberChange;
 
-    public Effect(String actionType, String affectedObjectName, int unitNumberChange) {
+    public EventChoiceEffect(String actionType, String affectedObjectName, int unitNumberChange) {
         this.actionType = actionType;
         this.affectedObjectName = affectedObjectName;
         this.unitNumberChange = unitNumberChange;
@@ -13,6 +13,11 @@ public class Effect {
 
     public void affectFaction(Faction faction)
     {
+        if(faction.isAlive() == false)
+        {
+            System.out.println("La satisfaction de la faction " + faction.getName() + " ne peut plus changer, car elle est à 0");
+            return;
+        }
         int oldSatisfaction = faction.getSatisfaction();
         int newSatisfaction = oldSatisfaction + this.unitNumberChange;
         if(newSatisfaction <= 0)

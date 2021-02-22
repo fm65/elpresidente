@@ -50,16 +50,16 @@ public class JSONTest {
     public void testExtractChoices()
     {
         Event event = new Event("Des monstres géants approchent le royaume... Que faites-vous ?");
-        jsonLoader.extractChoices(this.eventJSONObject,event);
-        assertEquals(3,event.getChoices().size());
+        jsonLoader.extractEventChoices(this.eventJSONObject,event);
+        assertEquals(3,event.getEventChoices().size());
     }
 
     @org.junit.jupiter.api.Test
     public void testExtractEffects()
     {
-        Choice choice = new Choice("J'envoie toute la force militaire du pays pour les éradiquer");
-        jsonLoader.extractEffects(this.choiceJSONObject,choice);
-        assertEquals(3,choice.getEffectList().size());
+        EventChoice eventChoice = new EventChoice("J'envoie toute la force militaire du pays pour les éradiquer");
+        jsonLoader.extractChoiceEffects(this.choiceJSONObject, eventChoice);
+        assertEquals(3, eventChoice.getEventChoiceEffectList().size());
     }
 
     @org.junit.jupiter.api.Test
