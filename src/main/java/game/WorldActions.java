@@ -45,11 +45,11 @@ public class WorldActions {
      public void callEvent(String season)
      {
          Random random = new Random();
-         int randomIndex = random.nextInt(this.data.getEvents().size());
+         int randomIndex = random.nextInt(this.data.getEventList().size());
          System.out.println("Un nouvel évènement est arrivé ! \n");
-         this.data.getEvents().get(randomIndex).displayChoices();
+         this.data.getEventList().get(randomIndex).displayChoices();
          System.out.println("\nVeuillez entrer le numéro de votre choix\n");
-         EventChoice eventChoice = this.data.getEvents().get(randomIndex).choose();
+         EventChoice eventChoice = this.data.getEventList().get(randomIndex).choose();
          this.applyChoiceEffects(eventChoice);
      }
 

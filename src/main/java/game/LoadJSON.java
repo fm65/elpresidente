@@ -122,7 +122,7 @@ public class LoadJSON {
            // System.out.println("factions"  + factionsJSONObject.toString());
             this.extractFactions(factionsJSONObject, this.data.getFactionsList());
             this.extractStartParameters(startParametersJSONObject);
-            this.extractEvents(eventsArray, this.data.getEvents());
+            this.extractEvents(eventsArray, this.data.getEventList());
         }
         catch (FileNotFoundException e) {
             System.out.println("The file could not be found");

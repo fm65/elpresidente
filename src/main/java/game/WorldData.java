@@ -11,11 +11,11 @@ public class WorldData {
     private int foodUnits;
     private int globalPopulation;
     private String difficulty;
-    private ArrayList<Event> events;
+    private ArrayList<Event> eventList;
 
     public WorldData() {
         this.factionsList = new ArrayList<Faction>();
-        this.events = new ArrayList<Event>();
+        this.eventList = new ArrayList<Event>();
 
     }
     public void calculateGlobalSatisfactionWithUpdate()
@@ -114,11 +114,11 @@ public class WorldData {
         this.difficulty = difficulty;
     }
 
-    public ArrayList<Event> getEvents() {
-        return events;
+    public ArrayList<Event> getEventList() {
+        return eventList;
     }
 
-    public void setEvents(ArrayList<Event> events) {
-        this.events = events;
+    public void setEventList(ArrayList<Event> eventList) {
+        this.eventList = eventList;
     }
 }

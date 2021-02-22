@@ -16,35 +16,34 @@ public class EventChoice {
     public void applyEffects()
     {
         WorldData data = World.data;
-        if(this.eventChoiceEffectList.size() > 0)
-        {
-            for(EventChoiceEffect eventChoiceEffect : eventChoiceEffectList)
-            {
-                if(eventChoiceEffect.getActionType().equals("actionOnFaction"))
-                {
+        if(this.eventChoiceEffectList.size() > 0) {
+            for(EventChoiceEffect eventChoiceEffect : eventChoiceEffectList) {
+                if(eventChoiceEffect.getActionType().equals("actionOnFaction")) {
                     Faction faction = data.factionExists(eventChoiceEffect.getAffectedObjectName());
-                    if(faction != null)
-                    {
+                    if(faction != null) {
                         eventChoiceEffect.affectFaction(faction);
                     }
                 }
-                else if(eventChoiceEffect.getActionType().equals("actionOnFactor"))
-                {
+                else if(eventChoiceEffect.getActionType().equals("actionOnFactor")) {
                     eventChoiceEffect.affectFactor();
                 }
-                else if(eventChoiceEffect.getActionType().equals("partisans"))
-                {
+                else if(eventChoiceEffect.getActionType().equals("partisans")) {
                     eventChoiceEffect.affectPartisans();
                 }
-                else
-                {
+                else {
                     System.out.println("Rien ne se passe...");
                 }
             }
         }
-        if(this.relatedEventsList.size() > 0)
+        if(this.relatedEventsList.size() > 0) {
+            this.addRelatedEvents();
+        }
+    }
+    private void addRelatedEvents()
+    {
+        for(Event event : this.relatedEventsList)
         {
-
+            World.data.getEventList().add(event);
         }
     }
     public ArrayList<EventChoiceEffect> getEventChoiceEffectList() {

@@ -47,8 +47,8 @@ public class JSONTest {
     public void testExtractEvents()
     {
 
-        this.jsonLoader.extractEvents(eventsArray,this.data.getEvents());
-        assertEquals(18, this.data.getEvents().size());
+        this.jsonLoader.extractEvents(eventsArray,this.data.getEventList());
+        assertEquals(18, this.data.getEventList().size());
     }
     @org.junit.jupiter.api.Test
     public void testExtractChoices()
