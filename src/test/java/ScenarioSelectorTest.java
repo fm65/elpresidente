@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import game.ScenarioSelector;
 
 import java.io.ByteArrayInputStream;
 import java.util.NoSuchElementException;

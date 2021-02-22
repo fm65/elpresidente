@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.InputMismatchException;
+package game;
+
 import java.util.Random;
-import java.util.Scanner;
 
 public class WorldActions {
     private final String[] seasons = {"hiver","printemps","été","automne"};

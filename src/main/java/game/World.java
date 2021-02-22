@@ -1,3 +1,4 @@
+package game;
 
 public class World {
     public static final WorldData data = new WorldData();

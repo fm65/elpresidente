@@ -1,10 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayInputStream;
-import java.util.NoSuchElementException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import game.World;
 
 public class WorldTest {
     private World myWorld;

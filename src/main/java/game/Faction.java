@@ -1,3 +1,5 @@
+package game;
+
 public class Faction {
     private String name;
     private int satisfaction;

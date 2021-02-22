@@ -3,6 +3,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeEach;
+import game.Event;
+import game.EventChoice;
+import game.LoadJSON;
+import game.WorldData;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
