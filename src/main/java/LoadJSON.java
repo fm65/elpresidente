@@ -26,28 +26,28 @@ public class LoadJSON {
         {
             JSONObject eventJSONObject = (JSONObject) eventObject;
             Event newEvent = new Event((String)eventJSONObject.get("name").toString());
-            this.extractChoices(eventJSONObject, newEvent);
+            this.extractEventChoices(eventJSONObject, newEvent);
             eventsList.add(newEvent);
         }
     }
-    public void extractChoices(JSONObject eventJSONObject, Event event)
+    public void extractEventChoices(JSONObject eventJSONObject, Event event)
     {
         JSONArray choicesJSONArray = (JSONArray) eventJSONObject.get("choices");
         for(Object choiceObject: choicesJSONArray)
         {
             JSONObject choiceJSONObject = (JSONObject) choiceObject;
-            Choice newChoice = new Choice((String)choiceJSONObject.get("choice"));
+            EventChoice newEventChoice = new EventChoice((String)choiceJSONObject.get("choice"));
             if(choiceJSONObject.get("relatedEvents") != null)
             {
                 JSONArray relatedEventsJSONArray = (JSONArray) choiceJSONObject.get("relatedEvents");
-                this.extractEvents(relatedEventsJSONArray,newChoice.getRelatedEventsList());
+                this.extractEvents(relatedEventsJSONArray, newEventChoice.getRelatedEventsList());
             }
-            this.extractEffects(choiceJSONObject, newChoice);
-            event.getChoices().add(newChoice);
+            this.extractChoiceEffects(choiceJSONObject, newEventChoice);
+            event.getEventChoices().add(newEventChoice);
         }
 
     }
-    public void extractEffects(JSONObject choiceJSONObject, Choice choice)
+    public void extractChoiceEffects(JSONObject choiceJSONObject, EventChoice eventChoice)
     {
         JSONArray effectsArray = (JSONArray) choiceJSONObject.get("effects");
         for(Object effectObject : effectsArray)
@@ -66,20 +66,20 @@ public class LoadJSON {
                 {
                     actionJSONObject = (JSONObject) effectJSONObject.get(affectedType);
                 }
-                extractEffectsActions(actionJSONObject, choice.getEffectList(),affectedType );
+                extractEffectsActions(actionJSONObject, eventChoice.getEventChoiceEffectList(),affectedType );
             }
 
         }
     }
-    public void extractEffectsActions(JSONObject actionsJSONObject, ArrayList<Effect> effectList, String affectedType)
+    public void extractEffectsActions(JSONObject actionsJSONObject, ArrayList<EventChoiceEffect> eventChoiceEffectList, String affectedType)
     {
         for(Object nameObject : actionsJSONObject.keySet())
         {
             String affectedName = nameObject.toString();
             Long unitNumberChange = (Long) actionsJSONObject.get(affectedName);
             //System.out.println("affectedType : " + affectedType + " affectedName : " + affectedName + " unitNumberChange : " + unitNumberChange.intValue());
-            Effect effect = new Effect(affectedType, affectedName, unitNumberChange.intValue());
-            effectList.add(effect);
+            EventChoiceEffect eventChoiceEffect = new EventChoiceEffect(affectedType, affectedName, unitNumberChange.intValue());
+            eventChoiceEffectList.add(eventChoiceEffect);
         }
     }
     public void extractFactions(JSONObject factionsJSONObject, ArrayList<Faction> factionsList)
