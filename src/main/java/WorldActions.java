@@ -13,21 +13,28 @@ public class WorldActions {
          for(int i = 0; i < seasons.length; i++)
          {
              this.callEvent(seasons[i]);
+             double oldGlobalSatisfaction = this.data.getGlobalSatisfaction();
+             this.data.calculateGlobalPopulationWithUpdate();
+             this.data.calculateGlobalSatisfactionWithUpdate();
+             System.out.println("La satisfaction globale est passée de " + oldGlobalSatisfaction + " à " + this.data.getGlobalSatisfaction());
+             if(this.data.getGlobalSatisfaction() < 50)
+             {
+                 System.out.println("La satisfaction a trop descendu, vous avez perdu");
+                 return false;
+             }
          }
          return true;
      }
 
-     public boolean iterateYears()
+     public int iterateYears()
      {
          int i = 1;
          while(iterateSeasons())
          {
-             if(i % 4 == 0)
-             {
                 this.endYear();
-             }
+                i++;
          }
-         return false;
+         return i;
      }
 
      public void callEvent(String season)
@@ -43,6 +50,7 @@ public class WorldActions {
 
      public void endYear()
      {
+
          this.bribe();
          this.foodMarket();
          this.yearReview();

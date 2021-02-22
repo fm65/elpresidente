@@ -87,10 +87,9 @@ public class LoadJSON {
         for(Object factionObject : factionsJSONObject.keySet())
         {
             JSONObject factionJSONObject = (JSONObject) factionsJSONObject.get(factionObject);
-            String factionName = (String) factionsJSONObject.get("name");
             Long factionSatisfaction = (Long) factionJSONObject.get("satisfactionPercentage");
             Long factionPartisans = (Long) factionJSONObject.get("numberOfPartisans");
-            Faction newFaction = new Faction(factionName, factionSatisfaction.intValue(), factionPartisans.intValue());
+            Faction newFaction = new Faction((String) factionJSONObject.get("name"), factionSatisfaction.intValue(), factionPartisans.intValue());
             factionsList.add(newFaction);
         }
         this.data.calculateGlobalPopulationWithUpdate();

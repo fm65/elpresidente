@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class World {
     private WorldData data;
     private WorldActions actions;
-    private int turnNumber;
+    private int yearNumber;
     private String scenarioName;
     private String filePath;
     public World() {
@@ -28,7 +28,8 @@ public class World {
 
     public void executeActions()
     {
-        this.actions.iterateYears();
+        this.yearNumber = this.actions.iterateYears();
+        System.out.println("Bravo, vous avez tenu " + yearNumber + " années");
     }
 
     public WorldData getData() {

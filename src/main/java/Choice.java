@@ -17,7 +17,7 @@ public class Choice {
         {
             for(Effect effect : effectList)
             {
-                if(effect.getActionType() == "actionOnFaction")
+                if(effect.getActionType().equals("actionOnFaction"))
                 {
                     Faction faction = data.factionExists(effect.getAffectedObjectName());
                     if(faction != null)
@@ -25,11 +25,11 @@ public class Choice {
                         effect.affectFaction(faction);
                     }
                 }
-                else if(effect.getActionType() == "actionOnFactor")
+                else if(effect.getActionType().equals("actionOnFactor"))
                 {
                     effect.affectFactor(data);
                 }
-                else if(effect.getActionType() == "partisans")
+                else if(effect.getActionType().equals("partisans"))
                 {
                     effect.affectPartisans(data);
                 }

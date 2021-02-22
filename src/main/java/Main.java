@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         int choice;
         boolean keepGoing = true;
-        World myWorld = new World();
+
         do{
                 System.out.println("A quel mode de jeu désirez vous jouer:");
                 System.out.println("1) Scénario\n2) Bac à sable\n3) Quitter le jeu");
@@ -32,6 +32,7 @@ public class Main {
                     }
                     else
                     {
+                        World myWorld = new World();
                         myWorld.createDataWithJSON(filePath);
                         myWorld.executeActions();
                     }
@@ -39,7 +40,8 @@ public class Main {
                 }
                 else if(choice == 2)
                 {
-                    //créer les données à la main
+                    World myWorld = new World();
+                    myWorld.createData();
                     myWorld.executeActions();
                 }
                 else if(choice == 3)

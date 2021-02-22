@@ -13,21 +13,19 @@ public class Effect {
 
     public void affectFaction(Faction faction)
     {
-        int newSatisfaction = faction.getSatisfaction() + this.unitNumberChange;
+        int oldSatisfaction = faction.getSatisfaction();
+        int newSatisfaction = oldSatisfaction + this.unitNumberChange;
         if(newSatisfaction <= 0)
         {
             faction.setAlive(false);
-            faction.setSatisfaction(0);
+            newSatisfaction = 0;
         }
         else if(newSatisfaction > 100)
         {
-            faction.setSatisfaction(100);
+            newSatisfaction = 100;
         }
-        else
-        {
-            faction.setSatisfaction(newSatisfaction);
-        }
-        System.out.println("Nouvelle satisfaction de " + faction.getName() + " : " + faction.getSatisfaction());
+        faction.setSatisfaction(newSatisfaction);
+        System.out.println("La satisfaction de " + faction.getName() + " est passée de " + oldSatisfaction + " à " + faction.getSatisfaction());
     }
 
     public void affectFactor(WorldData data)
@@ -48,28 +46,31 @@ public class Effect {
         {
             this.affectAgriculture(data);
         }
+
     }
     public void affectTreasury(WorldData data)
     {
-        int newTreasury = data.getTreasury() + this.unitNumberChange;
+        int oldTreasury = data.getTreasury();
+        int newTreasury = oldTreasury + this.unitNumberChange;
         data.setTreasury(newTreasury);
+        System.out.println("Votre trésorerie est passée de " + oldTreasury + " à " + newTreasury);
     }
     public void affectFood(WorldData data)
     {
-        int newFoodUnits = data.getFoodUnits() + this.unitNumberChange;
+        int oldFoodUnits = data.getFoodUnits();
+        int newFoodUnits = oldFoodUnits + this.unitNumberChange;
         if(newFoodUnits < 0)
         {
-            data.setFoodUnits(0);
+            newFoodUnits = 0;
         }
-        else
-        {
-            data.setFoodUnits(newFoodUnits);
-        }
+        data.setFoodUnits(newFoodUnits);
+        System.out.println("Vos unités de nourriture sont passées de " + oldFoodUnits + " à " + newFoodUnits);
     }
 
     public void affectIndustry(WorldData data)
     {
-        int newIndustry = data.getIndustryPercentage() + this.unitNumberChange;
+        int oldIndustry = data.getIndustryPercentage();
+        int newIndustry = oldIndustry + this.unitNumberChange;
         if(newIndustry + data.getAgriculturePercentage() > 100)
         {
             newIndustry = 100 - data.getAgriculturePercentage();
@@ -79,11 +80,13 @@ public class Effect {
             newIndustry = 0;
         }
         data.setIndustryPercentage(newIndustry);
+        System.out.println("Votre industrie est passée de " + oldIndustry + " à " + newIndustry);
     }
 
     public void affectAgriculture(WorldData data)
     {
-        int newAgriculture = data.getAgriculturePercentage() + this.unitNumberChange;
+        int oldAgriculture = data.getAgriculturePercentage();
+        int newAgriculture = oldAgriculture + this.unitNumberChange;
         if(newAgriculture + data.getIndustryPercentage() > 100)
         {
             newAgriculture = 100 - data.getIndustryPercentage();
@@ -93,10 +96,12 @@ public class Effect {
             newAgriculture = 0;
         }
         data.setIndustryPercentage(newAgriculture);
+        System.out.println("Votre industrie est passée de " + oldAgriculture + " à " + newAgriculture);
     }
 
     public void affectPartisans(WorldData data)
     {
+        int oldGlobalPopulation = data.getGlobalPopulation();
         Random random = new Random();
         for(int i = 0; i < Integer.signum(unitNumberChange) * unitNumberChange; i++)
         {
@@ -104,6 +109,8 @@ public class Effect {
             Faction affectedFaction = data.getFactionsList().get(index);
             affectedFaction.setTotalPartisans(affectedFaction.getTotalPartisans()+Integer.signum(unitNumberChange));
         }
+        data.calculateGlobalPopulationWithUpdate();
+        System.out.println("Votre population est passée de " + oldGlobalPopulation + " à " + data.getGlobalPopulation());
     }
     public String getActionType() {
         return actionType;
