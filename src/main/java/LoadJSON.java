@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -11,12 +10,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class LoadJSON {
-    private String fileName;
+    private String filePath;
     private WorldData data;
     private JSONParser parser;
 
-    public LoadJSON(String fileName, WorldData data) {
-        this.fileName = fileName;
+    public LoadJSON(String filePath, WorldData data) {
+        this.filePath = filePath;
         this.data = data;
         this.parser = new JSONParser();
     }
@@ -26,7 +25,7 @@ public class LoadJSON {
         for(Object eventObject: eventsJSONArray)
         {
             JSONObject eventJSONObject = (JSONObject) eventObject;
-            Event newEvent = new Event((String)eventJSONObject.get("name"));
+            Event newEvent = new Event((String)eventJSONObject.get("name").toString());
             this.extractChoices(eventJSONObject, newEvent);
             eventsList.add(newEvent);
         }
@@ -41,7 +40,7 @@ public class LoadJSON {
             if(choiceJSONObject.get("relatedEvents") != null)
             {
                 JSONArray relatedEventsJSONArray = (JSONArray) choiceJSONObject.get("relatedEvents");
-                this.extractEvents(relatedEventsJSONArray,newChoice.getRelatedEvents());
+                this.extractEvents(relatedEventsJSONArray,newChoice.getRelatedEventsList());
             }
             this.extractEffects(choiceJSONObject, newChoice);
             event.getChoices().add(newChoice);
@@ -67,7 +66,7 @@ public class LoadJSON {
                 {
                     actionJSONObject = (JSONObject) effectJSONObject.get(affectedType);
                 }
-                extractEffectsActions(actionJSONObject, choice.getEffects(),affectedType );
+                extractEffectsActions(actionJSONObject, choice.getEffectList(),affectedType );
             }
 
         }
@@ -113,12 +112,13 @@ public class LoadJSON {
     }
     public void extractAll()
     {
-        try(FileReader reader = new FileReader(this.fileName)) {
+        try(FileReader reader = new FileReader(this.filePath)) {
             JSONObject jsonFile = (JSONObject) parser.parse(reader);
             JSONArray eventsArray = (JSONArray) jsonFile.get("events");
             JSONObject startParametersJSONObject = (JSONObject) jsonFile.get("gameStartParameters");
             JSONObject difficultyParametersJSONObject = (JSONObject) startParametersJSONObject.get(startParametersJSONObject.keySet().iterator().next());
             JSONObject factionsJSONObject = (JSONObject) difficultyParametersJSONObject.get("factions");
+           // System.out.println("factions"  + factionsJSONObject.toString());
             this.extractFactions(factionsJSONObject, this.data.getFactionsList());
             this.extractStartParameters(startParametersJSONObject);
             this.extractEvents(eventsArray, this.data.getEvents());

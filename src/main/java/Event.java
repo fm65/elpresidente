@@ -1,31 +1,49 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Event {
     private ArrayList<Choice> choices;
-    private String Description;
+    private String description;
 
     public Event(String description) {
-        Description = description;
+        this.description = description;
+        this.choices = new ArrayList<Choice>();
     }
 
     public void displayChoices()
     {
-        for(int i = 0; i < choices.size(); i++)
+        System.out.println(this.description);
+        System.out.println("\nQu'allez vous faire?\n");
+        for(int i = 0; i < this.choices.size(); i++)
         {
-            System.out.println(choices.get(i).getDescription());
+            System.out.println(i+1 + ") " + this.choices.get(i).getDescription());
         }
     }
 
-    public void makeChoice()
+    public Choice choose()
     {
-
+        Scanner input = new Scanner(System.in);
+        int choiceIndex = 0;
+        try {
+            choiceIndex  = input.nextInt();
+        }catch(InputMismatchException exception)
+        {
+            System.out.println("Je n'ai pas compris, veuillez réessayer.");
+            this.choose();
+        }
+        if(choiceIndex <= this.choices.size() && choiceIndex > 0)
+        {
+            return this.choices.get(choiceIndex);
+        }
+        else
+        {
+            System.out.println("Ce chiffre n'est pas bon, veuillez entrer votre choix à  nouveau.");
+            this.choose();
+        }
+        //if related events, then add the related events to the worldata event list
+        return null;
     }
-
-    public void applyChoiceEffects(Choice choice)
-    {
-
-    }
-
     public ArrayList<Choice> getChoices() {
         return choices;
     }
@@ -35,10 +53,10 @@ public class Event {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 }

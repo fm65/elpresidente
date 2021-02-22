@@ -36,6 +36,18 @@ public class WorldData {
         this.globalPopulation = population;
     }
 
+    public Faction factionExists(String factionName)
+    {
+        for(Faction faction : factionsList)
+        {
+            if(faction.getName().toLowerCase() == factionName.toLowerCase())
+            {
+                return faction;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<Faction> getFactionsList() {
         return factionsList;
     }

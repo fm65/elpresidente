@@ -53,7 +53,7 @@
   },
   "events": [
     {
-      "name": "Des monstres géants approchent le royaume... Que faites-vous ?",
+      "name": "Des monstres géants approchent le royaume...",
       "choices": [
         {
           "choice": "J'envoie toute la force militaire du pays pour les éradiquer",

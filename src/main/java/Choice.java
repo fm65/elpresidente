@@ -1,22 +1,55 @@
 import java.util.ArrayList;
 
 public class Choice {
-    private ArrayList<Effect> effects;
-    private ArrayList<Event> relatedEvents;
+    private ArrayList<Effect> effectList;
+    private ArrayList<Event> relatedEventsList;
     private String description;
 
     public Choice(String description) {
         this.description = description;
-        this.effects = new ArrayList<Effect>();
-        this.relatedEvents = new ArrayList<Event>();
+        this.effectList = new ArrayList<Effect>();
+        this.relatedEventsList = new ArrayList<Event>();
     }
 
-    public ArrayList<Effect> getEffects() {
-        return effects;
+    public void applyEffects(WorldData data)
+    {
+        if(this.effectList.size() > 0)
+        {
+            for(Effect effect : effectList)
+            {
+                if(effect.getActionType() == "actionOnFaction")
+                {
+                    Faction faction = data.factionExists(effect.getAffectedObjectName());
+                    if(faction != null)
+                    {
+                        effect.affectFaction(faction);
+                    }
+                }
+                else if(effect.getActionType() == "actionOnFactor")
+                {
+                    effect.affectFactor(data);
+                }
+                else if(effect.getActionType() == "partisans")
+                {
+                    effect.affectPartisans(data);
+                }
+                else
+                {
+                    System.out.println("Rien ne se passe...");
+                }
+            }
+        }
+        if(this.relatedEventsList.size() > 0)
+        {
+
+        }
+    }
+    public ArrayList<Effect> getEffectList() {
+        return effectList;
     }
 
-    public void setEffects(ArrayList<Effect> effects) {
-        this.effects = effects;
+    public void setEffectList(ArrayList<Effect> effectList) {
+        this.effectList = effectList;
     }
 
     public String getDescription() {
@@ -27,11 +60,11 @@ public class Choice {
         this.description = description;
     }
 
-    public ArrayList<Event> getRelatedEvents() {
-        return relatedEvents;
+    public ArrayList<Event> getRelatedEventsList() {
+        return relatedEventsList;
     }
 
-    public void setRelatedEvents(ArrayList<Event> relatedEvents) {
-        this.relatedEvents = relatedEvents;
+    public void setRelatedEventsList(ArrayList<Event> relatedEventsList) {
+        this.relatedEventsList = relatedEventsList;
     }
 }

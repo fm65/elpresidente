@@ -1,14 +1,14 @@
-import java.util.List;
+import java.util.Random;
 
 public class WorldActions {
     private final String[] seasons = {"hiver","printemps","été","automne"};
     private WorldData data;
 
-
-    public void iterateYears(WorldData data){
-
+    public WorldActions(WorldData data) {
+        this.data = data;
     }
-     private boolean iterateSeasons()
+
+    public boolean iterateSeasons()
      {
          for(int i = 0; i < seasons.length; i++)
          {
@@ -17,7 +17,7 @@ public class WorldActions {
          return true;
      }
 
-     private boolean iterateYears()
+     public boolean iterateYears()
      {
          int i = 1;
          while(iterateSeasons())
@@ -30,12 +30,18 @@ public class WorldActions {
          return false;
      }
 
-     private void callEvent(String season)
+     public void callEvent(String season)
      {
-         //call a random event, coherent with the current season
+         Random random = new Random();
+         int randomIndex = random.nextInt(this.data.getEvents().size());
+         System.out.println("Un nouvel évènement est arrivé ! \n");
+         this.data.getEvents().get(randomIndex).displayChoices();
+         System.out.println("\nVeuillez entrer le numéro de votre choix\n");
+         Choice choice = this.data.getEvents().get(randomIndex).choose();
+         this.applyChoiceEffects(choice);
      }
 
-     private void endYear()
+     public void endYear()
      {
          this.bribe();
          this.foodMarket();
@@ -43,19 +49,24 @@ public class WorldActions {
          this.updatePopulation();
      }
 
-    private void bribe() {
+    public void bribe() {
 
     }
 
-    private void yearReview() {
+    public void yearReview() {
 
     }
 
-    private void foodMarket() {
+    public void foodMarket() {
 
     }
 
-    private void updatePopulation() {
+    public void applyChoiceEffects(Choice choice)
+    {
+        choice.applyEffects(this.data);
+    }
+
+    public void updatePopulation() {
         this.data.setGlobalPopulation(0);
     }
 

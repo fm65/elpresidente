@@ -59,7 +59,7 @@ public class JSONTest {
     {
         Choice choice = new Choice("J'envoie toute la force militaire du pays pour les éradiquer");
         jsonLoader.extractEffects(this.choiceJSONObject,choice);
-        assertEquals(3,choice.getEffects().size());
+        assertEquals(3,choice.getEffectList().size());
     }
 
     @org.junit.jupiter.api.Test

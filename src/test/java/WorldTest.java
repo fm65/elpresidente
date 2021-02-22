@@ -1,49 +1,57 @@
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayInputStream;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WorldTest {
-
+    private World myWorld;
     @BeforeEach
     protected void setUp ()  {
-
+        this.myWorld = new World();
+        this.myWorld.setScenarioName("Attack on Titans");
     }
 
-    @org.junit.jupiter.api.Test
+
+    @Test
     public void testWorldCreationWithScenario()
     {
+        this.myWorld.createDataWithJSON("scenario/attackOnTitans.json");
 
     }
-    @org.junit.jupiter.api.Test
+    @Test
     public void testWorldCreationWithoutScenario()
     {
-
+        this.myWorld.createData();
     }
-    @org.junit.jupiter.api.Test
+    @Test
     public void testIterateSeasons()
     {
-
+        this.myWorld.createDataWithJSON("scenario/attackOnTitans.json");
+        this.myWorld.getActions().iterateSeasons();
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testIterateYears()
     {
 
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testBribe()
     {
 
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testFoodMarket()
     {
 
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testUpdatePopulation()
     {
 
