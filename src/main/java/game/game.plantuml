@@ -1,0 +1,183 @@
+@startuml
+
+title  El presidente class diagram\n
+scale 1024 width
+
+    namespace game {
+      class game.Event {
+          - description : String
+          - eventChoices : ArrayList<EventChoice>
+          + choose()
+          + displayChoices()
+      }
+    }
+
+  
+
+    namespace game {
+      class game.EventChoice {
+          - description : String
+          - eventChoiceEffectList : ArrayList<EventChoiceEffect>
+          - relatedEventsList : ArrayList<Event>
+          + applyEffects()
+          - addRelatedEvents()
+      }
+    }
+
+  
+
+
+    namespace game {
+      class game.EventChoiceEffect {
+          - actionType : String
+          - affectedObjectName : String
+          - unitNumberChange : int
+          + affectFaction()
+          + affectFactor()
+          + affectPartisans()
+          - affectAgriculture()
+          - affectFood()
+          - affectIndustry()
+          - affectTreasury()
+      }
+    }
+
+  
+
+
+    namespace game {
+      class game.Faction {
+          - isAlive : boolean
+          - name : String
+          - satisfaction : int
+          - totalPartisans : int
+      }
+    }
+
+  
+
+
+    namespace game {
+      class game.LoadJSON {
+          - filePath : String
+          - parser : JSONParser
+          + extractAll()
+          + extractChoiceEffects()
+          + extractEffectsActions()
+          + extractEventChoices()
+          + extractEvents()
+          + extractFactions()
+          + extractStartParameters()
+      }
+    }
+
+  
+
+
+    namespace game {
+      class game.Main {
+          {static} + main()
+      }
+    }
+
+  
+
+
+    namespace game {
+      class game.ScenarioSelector {
+          + displayScenarioNameStory()
+          + listScenarios()
+          + selectScenario()
+      }
+    }
+
+  
+
+
+    namespace game {
+      class game.World {
+          {static} + data : WorldData
+          - filePath : String
+          - scenarioName : String
+          - yearNumber : int
+          + createData()
+          + createDataWithJSON()
+          + executeActions()
+          {static} + scanInteger()
+          + selectDifficulty()
+          {static} + waitForEnter()
+      }
+    }
+
+  
+
+
+    namespace game {
+      class game.WorldActions {
+          - seasons : String[]
+          + applyChoiceEffects()
+          + callEvent()
+          + endYear()
+          + iterateSeasons()
+          + iterateYears()
+      }
+    }
+
+  
+
+
+    namespace game {
+      class game.WorldData {
+          - agriculturePercentage : int
+          - difficulty : String
+          - difficultyFactor : double
+          - eventList : ArrayList<Event>
+          - factionsList : ArrayList<Faction>
+          - foodUnits : int
+          - globalPopulation : int
+          - globalSatisfaction : double
+          - industryPercentage : int
+          - treasury : int
+          + calculateGlobalPopulationWithUpdate()
+          + calculateGlobalSatisfactionWithUpdate()
+          + factionExists()
+      }
+    }
+
+  
+
+
+    namespace game {
+      class game.YearEnding {
+          + bribe()
+          + bribeChoice()
+          + foodMarket()
+          + reviewFood()
+          + yearReview()
+          - bribeFaction()
+          - decreasePopulation()
+          - increasePopulation()
+          - reviewAgriculture()
+          - reviewIndustry()
+      }
+    }
+
+  
+
+  game.EventChoiceEffect --> game.WorldData : data
+  game.LoadJSON --> game.WorldData
+  game.World *-- game.WorldData : data
+  game.World --> game.WorldActions : actions
+  game.World --> game.LoadJSON : actions
+  game.YearEnding --> game.WorldData
+  game.WorldData *-- game.Event
+  game.WorldData *-- game.Faction
+  game.Event *-- game.EventChoice
+  game.EventChoice *-- game.EventChoiceEffect
+  game.Main --> game.World
+  game.WorldActions --> game.ScenarioSelector
+  game.WorldActions --> game.YearEnding
+  game.WorldActions --> game.Event
+
+
+@enduml
