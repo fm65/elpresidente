@@ -24,11 +24,10 @@ public class ScenarioSelector {
         this.listScenarios(fileNamesArray);
         System.out.println("\nVeuillez rentrer le numéro du scénario auquel vous voulez jouer\n");
         int fileIndex = World.scanInteger();
-
         System.out.println("Vous avez choisi " + fileIndex + ": ");
         if(fileIndex <= fileNamesArray.length && fileIndex > 0)
         {
-            this.displayScenarioNameStoryDifficulty(fileNamesArray[fileIndex-1]);
+            this.displayScenarioNameStory(fileNamesArray[fileIndex-1]);
             return "scenario/" + fileNamesArray[fileIndex-1];
         }
         else if(fileIndex == fileNamesArray.length + 1 )
@@ -50,7 +49,7 @@ public class ScenarioSelector {
         {
             System.out.println("\t\t===========");
             System.out.println(i + ") ");
-            this.displayScenarioNameStoryDifficulty(fileName);
+            this.displayScenarioNameStory(fileName);
             i++;
             World.waitForEnter("\nAppuyez sur entrée pour afficher le scénario suivant");
         }
@@ -58,7 +57,7 @@ public class ScenarioSelector {
         System.out.println(i + ") Revenir au menu");
     }
 
-    public void displayScenarioNameStoryDifficulty(String fileName)
+    public void displayScenarioNameStory(String fileName)
     {
         try(FileReader reader = new FileReader("scenario/"+fileName)) {
             JSONParser parser = new JSONParser();
@@ -68,7 +67,7 @@ public class ScenarioSelector {
 
             System.out.println(jsonFile.get("name"));
             System.out.println(jsonFile.get("story"));
-            System.out.println("Difficulté : " + startParametersJSONObject.keySet().iterator().next());
+           // System.out.println("Difficulté : " + startParametersJSONObject.keySet().iterator().next());
         }
         catch (FileNotFoundException e) {
             System.out.println("Le fichier n'a pas pu être trouvé");
@@ -79,4 +78,5 @@ public class ScenarioSelector {
             e.printStackTrace();
         }
     }
+
 }

@@ -11,6 +11,7 @@ public class WorldData {
     private int foodUnits;
     private int globalPopulation;
     private String difficulty;
+    private double difficultyFactor;
     private ArrayList<Event> eventList;
 
     public WorldData() {
@@ -37,7 +38,6 @@ public class WorldData {
         }
         this.globalPopulation = population;
     }
-
     public Faction factionExists(String factionName)
     {
         for(Faction faction : factionsList)
@@ -121,4 +121,13 @@ public class WorldData {
     public void setEventList(ArrayList<Event> eventList) {
         this.eventList = eventList;
     }
+
+    public double getDifficultyFactor() {
+        return difficultyFactor;
+    }
+
+    public void setDifficultyFactor(double difficultyFactor) {
+        this.difficultyFactor = difficultyFactor;
+    }
+
 }

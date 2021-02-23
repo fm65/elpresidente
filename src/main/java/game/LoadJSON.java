@@ -79,8 +79,16 @@ public class LoadJSON {
         {
             String affectedName = nameObject.toString();
             Long unitNumberChange = (Long) actionsJSONObject.get(affectedName);
-            //System.out.println("affectedType : " + affectedType + " affectedName : " + affectedName + " unitNumberChange : " + unitNumberChange.intValue());
-            EventChoiceEffect eventChoiceEffect = new EventChoiceEffect(affectedType, affectedName, unitNumberChange.intValue());
+            int unitNumberChangeInteger = unitNumberChange.intValue();
+            if(Long.signum(unitNumberChange) == 1)
+            {
+                unitNumberChangeInteger = (int) ((1 / data.getDifficultyFactor()) * unitNumberChange.doubleValue());
+            }
+            else
+            {
+                unitNumberChangeInteger = (int) (unitNumberChange.intValue() * data.getDifficultyFactor());
+            }
+            EventChoiceEffect eventChoiceEffect = new EventChoiceEffect(affectedType, affectedName, unitNumberChangeInteger);
             eventChoiceEffectList.add(eventChoiceEffect);
         }
     }

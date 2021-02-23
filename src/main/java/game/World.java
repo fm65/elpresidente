@@ -28,6 +28,31 @@ public class World {
         this.yearNumber = this.actions.iterateYears();
         System.out.println("Bravo, vous avez tenu " + yearNumber + " années");
     }
+    public void selectDifficulty()
+    {
+        System.out.println("Quelle difficulté souhaitez vous ?");
+        System.out.println("1) Facile");
+        System.out.println("2) Normal");
+        System.out.println("3) Difficile");
+        System.out.println("\nVeuillez entrer le chiffre qui correspond à la difficulté que vous désirez");
+        int choice = World.scanInteger();
+        switch (choice){
+            case 1:
+                World.data.setDifficultyFactor(0.5);
+                break;
+            case 2:
+                World.data.setDifficultyFactor(1);
+                break;
+            case 3:
+                World.data.setDifficultyFactor(2);
+                break;
+            default:
+                System.out.println("Mauvais chiffre, veuillez réessayer.");
+                this.selectDifficulty();
+                break;
+        }
+
+    }
     public static void waitForEnter(String message)
     {
         System.out.println(message);

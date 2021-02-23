@@ -25,6 +25,7 @@ public class Main {
                     else
                     {
                         World myWorld = new World();
+                        myWorld.selectDifficulty();
                         myWorld.createDataWithJSON(filePath);
                         myWorld.executeActions();
                     }
