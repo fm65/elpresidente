@@ -164,16 +164,16 @@ scale 1024 width
 
   
 
-  game.EventChoiceEffect --> game.WorldData : data
+  game.EventChoiceEffect --> game.WorldData
   game.LoadJSON --> game.WorldData
-  game.World *-- game.WorldData : data
-  game.World --> game.WorldActions : actions
-  game.World --> game.LoadJSON : actions
+  game.World *-- game.WorldData
+  game.World --> game.WorldActions
+  game.World --> game.LoadJSON
   game.YearEnding --> game.WorldData
   game.WorldData *-- game.Event
   game.WorldData *-- game.Faction
   game.Event *-- game.EventChoice
-  game.EventChoice *-- game.EventChoiceEffect
+  game.EventChoice *--> game.EventChoiceEffect
   game.Main --> game.World
   game.WorldActions --> game.ScenarioSelector
   game.WorldActions --> game.YearEnding

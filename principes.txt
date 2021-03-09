@@ -1,0 +1,13 @@
+Principes suivis :
+
+- DRY (don't repeat yourself)
+- SRP (Single-responsibility principle)
+- YAGNI (you aren't gonna need it)
+- KISS (keep it simple, stupid)
+
+Structural patterns :
+- Bridge Permet de diviser une grande classe ou un ensemble de classes étroitement liées en deux hiérarchies distinctes (abstraction et implémentation) qui peuvent être développées indépendamment l'une de l'autre.
+- Façade Fournit une interface simplifiée vers une bibliothèque, un cadre ou tout autre ensemble complexe de classes
+
+Behavorial patterns :
+Chain of responsibility Vous permet de transmettre les demandes à une chaîne de gestionnaires. À la réception d'une demande, chaque gestionnaire décide soit de la traiter, soit de la transmettre au gestionnaire suivant de la chaîne.

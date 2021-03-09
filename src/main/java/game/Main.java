@@ -8,7 +8,9 @@ public class Main {
     public static void main(String[] args) {
         int choice;
         boolean keepGoing = true;
-
+        System.out.println("Bonjour et bienvenue sur le jeu El presidente!");
+        System.out.println("Vous incarnerez un jeune dictateur en herbe, fraîchement élu comme Président.");
+        System.out.println("Vous aurez la lourde tâche de faire prospérer cette nouvelle mini- république.");
         do{
                 System.out.println("A quel mode de jeu désirez vous jouer:");
                 System.out.println("1) Scénario\n2) Bac à sable\n3) Quitter le jeu");

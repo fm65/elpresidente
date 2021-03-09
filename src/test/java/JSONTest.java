@@ -81,7 +81,8 @@ public class JSONTest {
     @org.junit.jupiter.api.Test
     public void testExtractStartParameters()
     {
-        jsonLoader.extractStartParameters((JSONObject) this.jsonFile.get("gameStartParameters"));
+        JSONObject startParametersJSONObject = (JSONObject) this.jsonFile.get("gameStartParameters");
+        jsonLoader.extractStartParameters(startParametersJSONObject);
         assertEquals(this.data.getAgriculturePercentage(),40);
         assertEquals(this.data.getDifficulty(),"NORMAL");
         assertEquals(this.data.getIndustryPercentage(),35);
